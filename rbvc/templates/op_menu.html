@@ -1,0 +1,20 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div class="container">
+    <h2>{% if edit_id %}编辑菜单{% else %}添加菜单{% endif %}</h2>
+        <form action="" method="post">
+            {% csrf_token %}
+            {% for field in form_obj %}
+                <div class="form-group clearfix">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                <span class="help-block">{{ field.errors.0 }}</span>
+                </div>
+            {% endfor %}
+            <div class="form-group">
+                <button type="submit" class="btn-success">提交</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

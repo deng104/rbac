@@ -1,0 +1,67 @@
+/* 二级菜单样式 */
+.multi-menu .item {
+    background-color: white;
+}
+
+.multi-menu .item > .title {
+    padding: 10px 5px;
+    border-bottom: 1px solid #dddddd;
+    cursor: pointer;
+    color: #333;
+    display: block;
+    background: #efefef;
+    background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #efefef), color-stop(1, #fafafa));
+    background: -ms-linear-gradient(bottom, #efefef, #fafafa);
+    background: -o-linear-gradient(bottom, #efefef, #fafafa);
+    filter: progid:dximagetransform.microsoft.gradient(startColorStr='#e3e3e3', EndColorStr='#ffffff');
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#fafafa',EndColorStr='#efefef')";
+    box-shadow: inset 0 1px 1px white;
+}
+
+.multi-menu .item > .body {
+    border-bottom: 1px solid #dddddd;
+}
+
+.multi-menu .item > .body a {
+    display: block;
+    padding: 5px 20px;
+    text-decoration: none;
+    border-left: 2px solid transparent;
+    font-size: 13px;
+
+}
+
+.multi-menu .item > .body a:hover {
+    border-left: 2px solid #2F72AB;
+}
+
+.multi-menu .item > .body a.active {
+    background-color: #428ccb;
+    color: #eee;
+}
+.multi-menu .item > .body a.active:hover {
+    color: #fff;
+}
+
+/*menu_list页面的样式*/
+tr.menu_active,
+tr.menu_active>td>a {
+    background-color: rgb(101, 181, 255);
+    color: white;
+}
+
+/*选择图标的样式*/
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+ul li {
+    float: left;
+    padding: 10px 10px 10px 0;
+    width: 80px;
+}
+ul li i {
+    font-size: 18px;
+    margin-left: 5px;
+    color: #6d6565;
+}

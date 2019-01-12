@@ -1,0 +1,97 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+    <div class="container-fluid">
+        <h2>菜单和权限管理</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><i class="fa fa-book"></i>菜单管理
+                            <a href="{% url 'menu_add' %}" class="pull-right"><i class="fa fa-plus-circle">添加</i></a>
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>菜单名称</th>
+                                <th>图标管理</th>
+                                <th>菜单权重</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for menu in menu_list %}
+                                {% load rbac %}
+                                <tr {% if request|is_this_menu:menu.id %}class="menu_active" {% endif %}>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td><a href="{% url 'menu_list' %}?menu_id={{ menu.id }}">{{ menu.title }}</a></td>
+                                    <td><i class="fa {{ menu.icon }}"></i></td>
+                                    <td>{{ menu.weight }}</td>
+                                    <td>
+                                        <a style="color: #333333;" href="{% url 'menu_edit' menu.id %}">
+                                            <i class="fa fa-edit" aria-hidden="true"></i></a>
+                                        |
+                                        <a style="color: #d9534f;" href="{% url 'menu_del' menu.id %}"><i class="fa fa-trash-o"></i></a>
+                                    </td>
+
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><i class="fa fa-group"></i>权限管理
+                            <a href="{% url 'permission_add' %}" class="pull-right"><i class="fa fa-plus-circle">添加</i></a>
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>权限名称</th>
+                                <th>URL</th>
+                                <th>路由别名</th>
+                                <th>是否显示</th>
+                                <th>所属菜单</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for permission in permission_list %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ permission.title }}</td>
+                                    <td>{{ permission.url }}</td>
+                                    <td>{{ permission.name }}</td>
+                                    <td>{{ permission.show }}</td>
+                                    <td>{{ permission.menu.title }}</td>
+                                    <td>
+                                        <a style="color: #333333;" href="{% url 'permission_edit' permission.id %}"><i class="fa fa-edit" aria-hidden="true"></i></a>
+                                        |
+                                        <a style="color: #d9534f;" href="{% url 'permission_del' permission.id %}"><i class="fa fa-trash-o"></i></a>
+                                    </td>
+
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
+

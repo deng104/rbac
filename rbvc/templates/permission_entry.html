@@ -1,0 +1,146 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <form action="?post_type=add" method="post">
+                    {% csrf_token %}
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">添加权限
+                                <button class="btn btn-success btn-xs pull-right" type="submit">添加</button>
+                            </h3>
+                        </div>
+                        <div class="panel-body">
+                            <p>那些只在项目中存在, 还没来得及加到permission表中的路由数据</p>
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>title</th>
+                                    <th>url</th>
+                                    <th>show</th>
+                                    <th>name</th>
+                                    <th>menu</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for form_obj in add_formset_obj %}
+                                    {{ add_formset_obj.management_form }}
+                                    <tr>
+                                    {{ form_obj.id }}
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ form_obj.title }} <span>{{ form_obj.title.errors.0 }}</span></td>
+                                    <td>{{ form_obj.url }}</td>
+                                    <td>{{ form_obj.show }}</td>
+                                    <td>{{ form_obj.name }}</td>
+                                    <td>{{ form_obj.menu }}</td>
+                                    </tr>
+
+                                {% endfor %}
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </form>
+                <hr>
+                <form action="?post_type=edit" method="post">
+                    {% csrf_token %}
+                    <div class="panel panel-warning">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">编辑权限
+                                <button class="btn btn-success btn-xs pull-right" type="submit">保存</button>
+                            </h3>
+                        </div>
+                        <div class="panel-body">
+                            <p>项目中存在, permission表中也存在的路由数据</p>
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>title</th>
+                                    <th>url</th>
+                                    <th>show</th>
+                                    <th>name</th>
+                                    <th>menu</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for form_obj in edit_formset_obj %}
+                                    {{ edit_formset_obj.management_form }}
+                                    <tr>
+                                    {{ form_obj.id }}
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ form_obj.title }} <span>{{ form_obj.title.errors.0 }}</span></td>
+                                    <td>{{ form_obj.url }}</td>
+                                    <td>{{ form_obj.show }}</td>
+                                    <td>{{ form_obj.name }}</td>
+                                    <td>{{ form_obj.menu }}</td>
+                                    <td>
+                                        <a href="{% url 'permission_del' form_obj.id.value %}?next={% url 'permission_entry' %}">
+                                            <i class="fa fa-trash-o"></i>
+                                        </a>
+                                    </td>
+                                    </tr>
+
+                                {% endfor %}
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </form>
+                <hr>
+                <form action="?post_type=edit" method="post">
+                    {% csrf_token %}
+                    <div class="panel panel-danger">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">删除权限</h3>
+                        </div>
+                        <div class="panel-body">
+                            <p>项目中不存在, 但permission表中存在的路由数据</p>
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>title</th>
+                                    <th>url</th>
+                                    <th>show</th>
+                                    <th>name</th>
+                                    <th>menu</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for form_obj in del_formset_obj %}
+                                    {{ del_formset_obj.management_form }}
+                                    <tr>
+                                    {{ form_obj.id }}
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ form_obj.title }} <span>{{ form_obj.title.errors.0 }}</span></td>
+                                    <td>{{ form_obj.url }}</td>
+                                    <td>{{ form_obj.show }}</td>
+                                    <td>{{ form_obj.name }}</td>
+                                    <td>{{ form_obj.menu }}</td>
+                                    <td>
+                                        <a href="{% url 'permission_del' form_obj.id.value %}?next={% url 'permission_entry' %}">
+                                            <i class="fa fa-trash-o"></i>
+                                        </a>
+                                    </td>
+                                    </tr>
+
+                                {% endfor %}
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+    <div class="luffy-container">
+        <div style="margin: 5px 0;">
+            <h1>角色列表</h1>
+            <a class="btn btn-success" href="{% url 'role_add' %}">
+                <i class="fa fa-plus-square" aria-hidden="true"></i> 添加新的角色
+            </a>
+        </div>
+        <table class="table table-bordered table-hover">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>角色姓名</th>
+                <th>权限数</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for role in role_list %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ role.title }}</td>
+                    <td>{{ role.permissions.all.count }}</td>
+                    <td>
+                        <a style="color: #333333;" href="{% url 'role_edit' role.id %}"><i class="fa fa-edit" aria-hidden="true"></i></a>
+                        |
+                        <a style="color: #d9534f;" href="{% url 'role_del' role.id %}"><i class="fa fa-trash-o"></i></a>
+                    </td>
+
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

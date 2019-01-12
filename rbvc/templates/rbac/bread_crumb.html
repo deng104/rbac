@@ -1,0 +1,6 @@
+<ol class="breadcrumb no-radius no-margin" style="border-bottom: 1px solid #ddd;">
+    {% for li in bread_crumb_list %}
+        <li><a href="{{ li.url }}">{{ li.title }}</a></li>
+    {% endfor %}
+
+</ol>

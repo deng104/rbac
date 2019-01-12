@@ -1,0 +1,28 @@
+{#<div class="static-menu">#}
+{#    {% for menu in menu_list %}#}
+{#        <a href="{{ menu.url }}" class="{{ menu.class }}">#}
+{#            <span class="icon-wrap">#}
+{#                <i class="fa {{ menu.icon }}"></i>#}
+{#            </span>#}
+{#            {{ menu.title }}#}
+{#        </a>#}
+{#    {% endfor %}#}
+{##}
+{#</div>#}
+
+<div class="multi-menu">
+    {% for menu in menu_list %}
+        <div class="item">
+            <div class="title"><i class="fa {{ menu.icon }}"></i>{{ menu.title }}</div>
+            <div class="body {{ menu.class }}">
+                {% for child in menu.children %}
+                    {% if child.show %}
+                    <a href="{{ child.url }}" class="{{ child.class }}">{{ child.title }}</a>
+                    {% endif %}
+                {% endfor %}
+
+            </div>
+        </div>
+    {% endfor %}
+
+</div>

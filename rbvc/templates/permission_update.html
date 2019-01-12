@@ -1,0 +1,123 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div class="container-fluid">
+        <h2>批量权限更新</h2>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel_title"><i class="fa fa-user-circle-o"></i> 用户信息
+                            {% if request.GET.user_id %}
+                                <a href="?" class="btn btn-danger btn-xs pull-right">取消</a>
+                            {% endif %}
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        <ul class="list-group">
+                            {% for user in all_user %}
+                                {% if user.id|safe == request.GET.user_id %}
+                                    <a href="?user_id={{ user.id }}"
+                                       class="list-group-item active">{{ user.username }}</a>
+                                {% else %}
+                                    <a href="?user_id={{ user.id }}" class="list-group-item">{{ user.username }}</a>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="post_type" value="role">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><i class="fa fa-object-group"></i> 角色信息
+                                {% if request.GET.role_id %}
+                                    <a href="?" class="btn btn-danger btn-xs pull-right">取消</a>
+                                {% endif %}
+                                {% if request.GET.user_id %}
+                                    <button type="submit" class="btn btn-success btn-xs pull-right">保存</button>
+                                {% endif %}
+                            </h3>
+                        </div>
+                        <div class="panel-body">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>角色</th>
+                                    <th>选中</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for role in all_role %}
+                                    {% if role.id|safe == request.GET.role_id %}
+                                        <tr class="info">
+                                            {% else %}
+                                        <tr>
+                                    {% endif %}
+                                <td><a href="?role_id={{ role.id }}">{{ role.title }}</a></td>
+                                {% if role in user_obj.roles.all %}
+                                    <td><input checked type="checkbox" name="role_id" value="{{ role.id }}"></td>
+                                {% else %}
+                                    <td><input type="checkbox" name="role_id" value="{{ role.id }}"></td>
+                                {% endif %}
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+            <div class="col-md-6">
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="post_type" value="permission">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><i class="fa fa-key"></i> 权限信息
+                                {% if request.GET.role_id %}
+                                    <button type="submit" class="btn btn-success btn-xs pull-right">保存</button>
+                                {% endif %}
+                            </h3>
+
+                        </div>
+                        <div class="panel-body">
+                            {% for menu in all_menu %}
+                                <div class="panel panel-info">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title menu-btn">
+                                            <i class="fa fa-angle-double-up" aria-hidden="true"></i>
+                                            {{ menu.title }}
+                                        </h3>
+                                    </div>
+                                    <div class="panel-body list-group">
+                                        {% for permission in menu.permission_set.all %}
+                                            <div class="list-group-item">
+                                                {% if permission in role_obj.permissions.all %}
+                                                    <input checked type="checkbox" name="permission_id"
+                                                           value="{{ permission.id }}">
+                                                {% else %}
+                                                    <input type="checkbox" name="permission_id"
+                                                           value="{{ permission.id }}">
+                                                {% endif %}
+                                                {{ permission.title }}
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block js %}
+    {% load static %}
+    <script src="{% static 'js/permission_update.js' %}"></script>
+{% endblock %}
