@@ -29,3 +29,4 @@ class PaymentUserForm(ModelForm):
         for name, field in self.fields.items():
             field.widget.attrs['class'] = 'form-control'
             field.widget.attrs['placeholder'] = field.label
+
