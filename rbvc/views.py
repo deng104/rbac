@@ -201,3 +201,4 @@ def permission_update(request):
             'role_obj': role_obj,
         }
     )
+
