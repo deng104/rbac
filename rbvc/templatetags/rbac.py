@@ -7,7 +7,7 @@ register = template.Library()
 
 @register.inclusion_tag(filename='rbac/menu.html')
 def show_menu(request):
-    # 先从配置文件中找到存放菜单信息的session key是什么
+    # 先从配置文件中找到存放菜单信息的session key
     menu_key = getattr(settings, 'MENU_SESSION_KEY', 'menu_dict')
     # 从session中取出菜单信息
     menu_dict = request.session[menu_key]
