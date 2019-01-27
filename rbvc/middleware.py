@@ -26,8 +26,7 @@ class RBACMiddleware(MiddlewareMixin):
         # 因为django URL存在模糊匹配, 所以校验权限的时候也要用正则去匹配
         for item in permission_dict.values():
             if re.match('^{}$'.format(item['url']), current_url):
-                # 有权限
-                # 如果根据权限找到它的父级菜单是谁, 塞到request.bread_crumb
+                # 有权限, 根据权限找到它的父级菜单是谁, 塞到request.bread_crumb
                 menu_title = menu_dict[str(item['menu_id'])]['title']
                 request.bread_crumb.append({'title': menu_title})
                 return None
