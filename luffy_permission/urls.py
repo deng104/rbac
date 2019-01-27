@@ -23,7 +23,6 @@ urlpatterns = [
     url(r'^login/$', views.login, name='login'),
     url(r'logout/$', views.logout, name='logout'),
     url(r'^', include('web.urls', namespace='web')),
-    # ================================================================================
     # 角色管理
     url(r'^role_list/$', views.role_list, name='role_list'),
     url(r'^role_add/$', views.op_role, name='role_add'),
