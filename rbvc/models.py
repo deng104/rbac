@@ -1,7 +1,5 @@
 from django.db import models
 
-# Create your models here.
-
 
 # 菜单表
 class Menu(models.Model):
