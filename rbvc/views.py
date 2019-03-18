@@ -12,9 +12,6 @@ logger = logging.getLogger(__name__)
 collect_logger = logging.getLogger('collect')
 
 
-# Create your views here.
-
-
 # 登录
 def login(request):
     error_msg = ''
